@@ -1,0 +1,7 @@
+ollama
+llama-index
+langchain
+sentence-transformers
+fastapi  # API for AI endpoints (use flask if preferred)
+uvicorn  # Server for FastAPI
+pypdf  # PDF reading for docs
