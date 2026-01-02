@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Rocket, Satellite, Radio, Globe, Activity, Zap, AlertTriangle, Crosshair, RefreshCw, Upload, MapPin, Camera, Eye, Scan, Target, CheckCircle, Video } from 'lucide-react';
 import MetricCard from '../components/MetricCard';
 import { useLanguage } from '../contexts/LanguageContext';
-import { analyzeSatelliteTarget, analyzeSatelliteRecon } from '../services/geminiService';
+import { analyzeSatelliteTarget, analyzeSatelliteRecon } from '../services/localAiService';
 
 interface SatelliteAsset {
     id: string;

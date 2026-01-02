@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Wifi, Radio, Server, Globe, Lock, Activity, ShieldCheck, AlertTriangle, Key, Languages, Mic } from 'lucide-react';
 import MetricCard from '../components/MetricCard';
 import { useLanguage } from '../contexts/LanguageContext';
-import { generateRadioChatter } from '../services/geminiService';
+import { generateRadioChatter } from '../services/localAiService';
 
 const CommunicationsView: React.FC = () => {
     const { t } = useLanguage();
