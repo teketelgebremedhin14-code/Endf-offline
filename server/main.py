@@ -10,20 +10,22 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],  # Or "http://localhost:3000"
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Offline setup – local LLM + local embeddings
+# Fully offline
 Settings.llm = Ollama(model="llama3", request_timeout=300.0)
-Settings.embed_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")  # Offline, downloads once
+Settings.embed_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-# Your document folder
-doc_path = "INGEST_FOLDER"  # Change to "docs", "data", or exact name
+# Your folder (change to exact name – "INGEST_FOLDER", "docs", "data")
+doc_path = "INGEST_FOLDER"
 if not os.path.exists(doc_path):
-    doc_path = "."  # Fallback
+    doc_path = "docs"  # Try common names
+if not os.path.exists(doc_path):
+    doc_path = "."  # Root fallback
 documents = SimpleDirectoryReader(doc_path).load_data()
 index = VectorStoreIndex.from_documents(documents)
 query_engine = index.as_query_engine()
@@ -34,10 +36,10 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 def chat(request: ChatRequest):
     rag_context = query_engine.query(request.message)
-    full_prompt = f"ENDF Context: {rag_context}\nQuery: {request.message}\nAnswer tactically."
-    response = Settings.llm.complete(full_prompt)
+    prompt = f"ENDF Document Context: {rag_context}\n\nQuery: {request.message}\nAnswer as ENDF officer – concise, tactical."
+    response = Settings.llm.complete(prompt)
     return {"response": str(response)}
 
 @app.get("/")
 def home():
-    return {"status": "Offline ENDF Nexus Ready – Llama3 + Local RAG"}
+    return {"status": "Offline ENDF Nexus – Llama3 + Local RAG Ready"}
