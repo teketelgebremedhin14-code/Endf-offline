@@ -3,7 +3,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Mic, Send, Bot, AlertCircle, StopCircle, Volume2, VolumeX, Radio, Activity, FileText, CheckSquare, Zap, Clock, X, ChevronDown, Camera, Image as ImageIcon } from 'lucide-react';
 import { streamSLASResponse, generateSpeech } from '../services/localAiService';
 import { ChatMessage } from '../types';
-import { GoogleGenAI, LiveServerMessage, Modality } from "@google/genai";
+
+  return () => {
+    second
+  };
+}, [third])";
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface SLASAssistantProps {
